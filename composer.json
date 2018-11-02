@@ -1,0 +1,32 @@
+{
+    "name": "vincentnt/contentmanager",
+    "description": "Laravel Content Manager for reuse purpose.",
+    "type": "Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vincent Nguyen",
+            "email": "vincentnguyen2712@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yajra/laravel-datatables-oracle":"^8.9",
+        "intervention/image":"^2.4"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VincentNt\\ContentManager\\ContentManagerServiceProvider"
+            ],
+            "aliases": {
+                "ContentManager": "VincentNt\\ContentManager\\Facade"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "VincentNt\\ContentManager\\": "src"
+        }
+    }
+}
