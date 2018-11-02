@@ -48,6 +48,33 @@ class InstallCommand extends Command
 
         $this->call('vendor:publish', ['--provider' => ContentManagerServiceProvider::class]);
 
+
+        $routes_contents = $filesystem->get(base_path('routes/web.php'));
+        if (false === strpos($routes_contents, '\VincentNt\ContentManager')) {
+            $this->info('Rewrite file for migrate and multi auth');
+            $app_service_contents = $filesystem->get(__DIR__ . '../rewrite_files/AppServiceProvider.php');
+            $handler_contents = $filesystem->get(__DIR__ . '../rewrite_files/Handler.php');
+            $redirect_contents = $filesystem->get(__DIR__ . '../rewrite_files/RedirectIfAuthenticated.php');
+            $auth_contents = $filesystem->get(__DIR__ . '../rewrite_files/auth.php');
+            $url_contents = $filesystem->get(__DIR__ . '../routes/web.php');
+            $filesystem->put(
+                base_path('app/Providers/AppServiceProvider.php'), $app_service_contents
+            );
+            $filesystem->put(
+                base_path('app/Exceptions/Handler.php'), $handler_contents
+            );
+            $filesystem->put(
+                base_path('app/Http/Middleware/RedirectIfAuthenticated.php'), $redirect_contents
+            );
+            $filesystem->put(
+                base_path('config/auth.php'), $auth_contents
+            );
+            $this->info('Adding routes to routes/web.php');
+            $filesystem->put(
+                base_path('routes/web.php'), $url_contents
+            );
+        }
+
         $this->info('Migrating the database tables into your application');
         $this->call('migrate:fresh');
 
@@ -58,24 +85,6 @@ class InstallCommand extends Command
         $process = new Process($composer . ' dump-autoload');
         $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
         $process->setWorkingDirectory(base_path())->run();
-
-        $this->info('Adding routes to routes/web.php');
-        $routes_contents = $filesystem->get(base_path('routes/web.php'));
-        if (false === strpos($routes_contents, 'Voyager::routes()')) {
-            $filesystem->append(
-                base_path('routes/web.php'),
-                "\nRoute::group(['prefix'=> 'admin'], function() {
-    Route::get('/', '\VincentNt\ContentManager\Controllers\HomeController@index')->name('admin.index');
-    Route::resources([
-        'pages' => '\VincentNt\ContentManager\Controllers\PageController',
-    ]);
-    Route::get('/pageData', '\VincentNt\ContentManager\Controllers\DataController@pageData')->name('pageData');
-    Route::get('/login', '\VincentNt\ContentManager\Controllers\LoginController@showLoginForm')->name('admin.login');
-    Route::post('/login', '\VincentNt\ContentManager\Controllers\LoginController@login')->name('admin.login.submit');
-    Route::post('/logout', '\VincentNt\ContentManager\Controllers\LoginController@logout')->name('admin.logout');
-});\n"
-            );
-        }
 
         $this->info('Seeding data into the database');
         $this->seed();
