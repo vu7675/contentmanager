@@ -76,15 +76,14 @@ class InstallCommand extends Command
             );
             Artisan::call('make:auth');
         }
+        $this->info('Dumping the autoloaded files and reloading all new files');
+        $composer = $this->findComposer();
+        $process = new Process($composer . ' dump-autoload');
 
         $this->info('Migrating the database tables into your application');
         $this->call('migrate:fresh');
-
-        $this->info('Dumping the autoloaded files and reloading all new files');
-
-        $composer = $this->findComposer();
-
         $process = new Process($composer . ' dump-autoload');
+
         $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
         $process->setWorkingDirectory(base_path())->run();
 
