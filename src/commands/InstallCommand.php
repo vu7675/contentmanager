@@ -51,7 +51,7 @@ class InstallCommand extends Command
 
         $routes_contents = $filesystem->get(base_path('routes/web.php'));
         if (false === strpos($routes_contents, '\VincentNt\ContentManager')) {
-            $filesystem->makeDirectory(base_path('images'));
+            $filesystem->makeDirectory(base_path('/public/images'));
             $this->info('Rewrite file for migrate and multi auth');
             $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
             $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
