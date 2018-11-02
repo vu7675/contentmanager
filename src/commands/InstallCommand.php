@@ -7,6 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use VincentNt\ContentManager\ContentManagerServiceProvider;
 use VincentNt\ContentManager\Database\Seeds\UsersTableSeeder;
+use Illuminate\Support\Facades\Artisan;
 
 class InstallCommand extends Command
 {
@@ -52,11 +53,11 @@ class InstallCommand extends Command
         $routes_contents = $filesystem->get(base_path('routes/web.php'));
         if (false === strpos($routes_contents, '\VincentNt\ContentManager')) {
             $this->info('Rewrite file for migrate and multi auth');
-            $app_service_contents = $filesystem->get(__DIR__ . '../rewrite_files/AppServiceProvider.php');
-            $handler_contents = $filesystem->get(__DIR__ . '../rewrite_files/Handler.php');
-            $redirect_contents = $filesystem->get(__DIR__ . '../rewrite_files/RedirectIfAuthenticated.php');
-            $auth_contents = $filesystem->get(__DIR__ . '../rewrite_files/auth.php');
-            $url_contents = $filesystem->get(__DIR__ . '../routes/web.php');
+            $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
+            $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
+            $redirect_contents = $filesystem->get(__DIR__ . '/../rewrite_files/RedirectIfAuthenticated.php');
+            $auth_contents = $filesystem->get(__DIR__ . '/../rewrite_files/auth.php');
+            $url_contents = $filesystem->get(__DIR__ . '/../routes/web.php');
             $filesystem->put(
                 base_path('app/Providers/AppServiceProvider.php'), $app_service_contents
             );
@@ -73,6 +74,7 @@ class InstallCommand extends Command
             $filesystem->put(
                 base_path('routes/web.php'), $url_contents
             );
+            Artisan::call('make:auth');
         }
 
         $this->info('Migrating the database tables into your application');
