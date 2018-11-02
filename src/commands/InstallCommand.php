@@ -52,11 +52,11 @@ class InstallCommand extends Command
         $routes_contents = $filesystem->get(base_path('routes/web.php'));
         if (false === strpos($routes_contents, '\VincentNt\ContentManager')) {
             $this->info('Rewrite file for migrate and multi auth');
-            $app_service_contents = $filesystem->get(__DIR__ . '../rewrite_files/AppServiceProvider.php');
-            $handler_contents = $filesystem->get(__DIR__ . '../rewrite_files/Handler.php');
-            $redirect_contents = $filesystem->get(__DIR__ . '../rewrite_files/RedirectIfAuthenticated.php');
-            $auth_contents = $filesystem->get(__DIR__ . '../rewrite_files/auth.php');
-            $url_contents = $filesystem->get(__DIR__ . '../routes/web.php');
+            $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
+            $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
+            $redirect_contents = $filesystem->get(__DIR__ . '/../rewrite_files/RedirectIfAuthenticated.php');
+            $auth_contents = $filesystem->get(__DIR__ . '/../rewrite_files/auth.php');
+            $url_contents = $filesystem->get(__DIR__ . '/../routes/web.php');
             $filesystem->put(
                 base_path('app/Providers/AppServiceProvider.php'), $app_service_contents
             );
