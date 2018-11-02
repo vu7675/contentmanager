@@ -49,9 +49,9 @@ class InstallCommand extends Command
 
         $this->call('vendor:publish', ['--provider' => ContentManagerServiceProvider::class]);
 
-
         $routes_contents = $filesystem->get(base_path('routes/web.php'));
         if (false === strpos($routes_contents, '\VincentNt\ContentManager')) {
+            $filesystem->makeDirectory(base_path('images'));
             $this->info('Rewrite file for migrate and multi auth');
             $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
             $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
@@ -79,13 +79,11 @@ class InstallCommand extends Command
         $this->info('Dumping the autoloaded files and reloading all new files');
         $composer = $this->findComposer();
         $process = new Process($composer . ' dump-autoload');
+        $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
+        $process->setWorkingDirectory(base_path())->run();
 
         $this->info('Migrating the database tables into your application');
         $this->call('migrate:fresh');
-        $process = new Process($composer . ' dump-autoload');
-
-        $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
-        $process->setWorkingDirectory(base_path())->run();
 
         $this->info('Seeding data into the database');
         $this->seed();
