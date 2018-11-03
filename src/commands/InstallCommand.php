@@ -43,39 +43,41 @@ class InstallCommand extends Command
         $this->info('Publishing the assets, database');
         $this->call('vendor:publish', ['--provider' => ContentManagerServiceProvider::class]);
 
-        $routes_contents = $filesystem->get(base_path('routes/web.php'));
-        if (false === strpos($routes_contents, '\VincentNt\ContentManager')) {
-            $this->info('Rewrite file for migration, multi-auth, seeding');
-            $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
-            $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
-            $redirect_contents = $filesystem->get(__DIR__ . '/../rewrite_files/RedirectIfAuthenticated.php');
-            $factory_contents = $filesystem->get(__DIR__ . '/../rewrite_files/UserFactory.php');
-            $seed_contents = $filesystem->get(__DIR__ . '/../rewrite_files/DatabaseSeeder.php');
-            $auth_contents = $filesystem->get(__DIR__ . '/../rewrite_files/auth.php');
-            $url_contents = $filesystem->get(__DIR__ . '/../rewrite_files/web.php');
-            $filesystem->put(
-                app_path('Providers/AppServiceProvider.php'), $app_service_contents
-            );
-            $filesystem->put(
-                app_path('Exceptions/Handler.php'), $handler_contents
-            );
-            $filesystem->put(
-                app_path('Http/Middleware/RedirectIfAuthenticated.php'), $redirect_contents
-            );
-            $filesystem->put(
-                database_path('factories/UserFactory.php'), $factory_contents
-            );
-            $filesystem->put(
-                database_path('seeds/DatabaseSeeder.php'), $seed_contents
-            );
-            $filesystem->put(
-                config_path('auth.php'), $auth_contents
-            );
-            $filesystem->put(
-                base_path('routes/web.php'), $url_contents
-            );
-//            Artisan::call('make:auth');
-        }
+        $this->info('Rewrite file for migration, multi-auth, seeding');
+        $event_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/EventServiceProvider.php');
+        $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
+        $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
+        $redirect_contents = $filesystem->get(__DIR__ . '/../rewrite_files/RedirectIfAuthenticated.php');
+        $factory_contents = $filesystem->get(__DIR__ . '/../rewrite_files/UserFactory.php');
+        $seed_contents = $filesystem->get(__DIR__ . '/../rewrite_files/DatabaseSeeder.php');
+        $auth_contents = $filesystem->get(__DIR__ . '/../rewrite_files/auth.php');
+        $url_contents = $filesystem->get(__DIR__ . '/../rewrite_files/web.php');
+        $filesystem->put(
+            app_path('Providers/EventServiceProvider.php'), $event_service_contents
+        );
+        $filesystem->put(
+            app_path('Providers/AppServiceProvider.php'), $app_service_contents
+        );
+        $filesystem->put(
+            app_path('Exceptions/Handler.php'), $handler_contents
+        );
+        $filesystem->put(
+            app_path('Http/Middleware/RedirectIfAuthenticated.php'), $redirect_contents
+        );
+        $filesystem->put(
+            database_path('factories/UserFactory.php'), $factory_contents
+        );
+        $filesystem->put(
+            database_path('seeds/DatabaseSeeder.php'), $seed_contents
+        );
+        $filesystem->put(
+            config_path('auth.php'), $auth_contents
+        );
+        $filesystem->put(
+            base_path('routes/web.php'), $url_contents
+        );
+        Artisan::call('make:auth');
+
         $this->info('Successfully installed content manager! Enjoy');
     }
 }

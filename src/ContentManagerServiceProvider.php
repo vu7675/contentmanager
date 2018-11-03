@@ -22,21 +22,12 @@ class ContentManagerServiceProvider extends ServiceProvider
             __DIR__.'/controllers' => app_path('Http/Controllers/Admin'),
             __DIR__.'/images' => public_path('images'),
             __DIR__.'/models' => app_path(),
+            __DIR__.'/events' => app_path('Events'),
+            __DIR__.'/listeners' => app_path('Listeners'),
         ]);
 
         $this->registerConsoleCommands();
     }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app->register(ContentManagerEventServiceProvider::class);
-    }
-
     /**
      * Register the commands accessible from the Console.
      */

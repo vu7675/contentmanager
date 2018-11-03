@@ -28,7 +28,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 191);
             $table->string('slug', 191);
             $table->string('cover', 191)->nullable()->default(null);
-            $table->string('meta-description', 191);
+            $table->string('description', 191);
 
             $table->index(["parent_id"], 'fk_categories_categories1_idx');
 
@@ -36,7 +36,7 @@ class CreateCategoriesTable extends Migration
 
             $table->unique(["slug"], 'slug_UNIQUE');
             $table->softDeletes();
-            $table->nullableTimestamps();
+            $table->timestamps();
 
 
             $table->foreign('parent_id', 'fk_categories_categories1_idx')

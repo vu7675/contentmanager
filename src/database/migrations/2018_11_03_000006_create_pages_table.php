@@ -32,7 +32,7 @@ class CreatePagesTable extends Migration
 
             $table->unique(["title"], 'pages_title_unique');
             $table->softDeletes();
-            $table->nullableTimestamps();
+            $table->timestamps();
         });
     }
 

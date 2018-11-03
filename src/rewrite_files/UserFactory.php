@@ -29,7 +29,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'title' => $title,
         'slug' => str_slug($title).uniqid(),
         'cover' => '/images/post/'.rand(1,10).'.jpg',
-        'meta-description' => $faker->sentence(),
+        'description' => $faker->sentence(),
         'body' => $faker->paragraph(3),
     ];
 });

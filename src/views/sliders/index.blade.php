@@ -10,26 +10,6 @@
             <th scope="col">Action</th>
         </tr>
         </thead>
-        <tbody>
-        @foreach($sliders as $slider)
-            <tr>
-                <td scope="row">{{$slider->id}}</td>
-                <td>{{$slider->name}}</td>
-                <td>{{$slider->email}}</td>
-                <td>{{$slider->created_at}}</td>
-                <td>
-                    <a href="{{url('sliders/'.$slider->id.'/edit')}}">
-                        <button class="btn btn-sm btn-primary">Edit</button>
-                    </a>
-                    <button class="btn btn-sm btn-danger delete" data-id="{{$slider->id}}">Delete</button>
-                    <form id="delete-{{$slider->id}}" action="{{ route('sliders.destroy', $slider->id) }}" method="POST" style="display: none;">
-                        {{csrf_field()}}
-                        <input type="hidden" name="_method" value="DELETE">
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
     </table>
 @endsection
 @push('scripts')

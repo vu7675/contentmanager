@@ -10,26 +10,6 @@
             <th scope="col">Action</th>
         </tr>
         </thead>
-        <tbody>
-        @foreach($users as $user)
-            <tr>
-                <td scope="row">{{$user->id}}</td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->created_at}}</td>
-                <td>
-                    <a href="{{url('users/'.$user->id.'/edit')}}">
-                        <button class="btn btn-sm btn-primary">Edit</button>
-                    </a>
-                    <button class="btn btn-sm btn-danger delete" data-id="{{$user->id}}">Delete</button>
-                    <form id="delete-{{$user->id}}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none;">
-                        {{csrf_field()}}
-                        <input type="hidden" name="_method" value="DELETE">
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
     </table>
 @endsection
 @push('scripts')

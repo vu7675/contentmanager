@@ -59,19 +59,19 @@ class ContentManagerSeeder extends Seeder
                 'name' => 'Tin tức',
                 'slug' => str_slug('Tin tức'),
                 'cover' => '/images/category/1.jpg',
-                'meta-description' => str_slug('Tin tức'),
+                'description' => str_slug('Tin tức'),
             ],
             [
                 'name' => 'Sức khoẻ',
                 'slug' => str_slug('Sức khoẻ'),
                 'cover' => '/images/category/1.jpg',
-                'meta-description' => str_slug('Sức khoẻ'),
+                'description' => str_slug('Sức khoẻ'),
             ],
             [
                 'name' => 'Đời sống',
                 'slug' => str_slug('Đời sống'),
                 'cover' => '/images/category/1.jpg',
-                'meta-description' => str_slug('Đời sống'),
+                'description' => str_slug('Đời sống'),
             ],
         ]);
 

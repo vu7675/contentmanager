@@ -27,14 +27,14 @@ class CreatePostsTable extends Migration
             $table->string('title', 191);
             $table->string('slug', 191);
             $table->string('cover', 191)->nullable()->default(null);
-            $table->string('meta-description', 191)->nullable()->default(null);
+            $table->string('description', 191)->nullable()->default(null);
             $table->longText('body');
 
             $table->unique(["slug"], 'slug_UNIQUE');
 
             $table->unique(["title"], 'title_UNIQUE');
             $table->softDeletes();
-            $table->nullableTimestamps();
+            $table->timestamps();
         });
     }
 

@@ -31,7 +31,7 @@ class CreateAdminsTable extends Migration
 
             $table->unique(["email"], 'email_UNIQUE');
             $table->softDeletes();
-            $table->nullableTimestamps();
+            $table->timestamps();
         });
     }
 

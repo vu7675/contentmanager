@@ -31,7 +31,7 @@ class CreateSlidersTable extends Migration
             $table->string('description', 191)->nullable()->default(null);
             $table->integer('active')->nullable()->default('1');
             $table->softDeletes();
-            $table->nullableTimestamps();
+            $table->timestamps();
         });
     }
 

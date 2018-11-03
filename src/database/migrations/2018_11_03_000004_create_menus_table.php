@@ -31,7 +31,7 @@ class CreateMenusTable extends Migration
             $table->integer('target');
 
             $table->index(["parent_id"], 'fk_menus_menus1_idx');
-            $table->nullableTimestamps();
+            $table->timestamps();
 
 
             $table->foreign('parent_id', 'fk_menus_menus1_idx')
