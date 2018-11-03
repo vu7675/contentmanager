@@ -19,7 +19,7 @@ return [
     ],
     'admins' => [
         'driver' => 'eloquent',
-        'model' => \VincentNt\ContentManager\Models\Admin::class,
+        'model' => App\Admin::class,
     ],
 
     /*
@@ -83,7 +83,7 @@ return [
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => \VincentNt\ContentManager\Models\Admin::class,
+            'model' => App\Admin::class,
         ],
 
         // 'users' => [

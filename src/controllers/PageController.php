@@ -1,27 +1,12 @@
 <?php
 
-namespace VincentNt\ContentManager\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use VincentNt\ContentManager\Models\Page;
-use VincentNt\ContentManager\Repositories\EloquentRepository;
+use App\Page;
 
-class PageController extends Controller
+class PageController extends AdminController
 {
-
-    protected $model;
-
-    /**
-     * PageController constructor.
-     * @param $model
-     */
-    public function __construct(Page $model)
-    {
-        $this->middleware('auth:admin');
-        $this->model = new EloquentRepository($model);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +14,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = $this->model->all();
+        $pages = Page::all();
         return view('contentmanager::pages.index', compact('pages'));
     }
 
@@ -93,9 +78,8 @@ class PageController extends Controller
      * @param  \App\Page $page
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Page $page)
     {
-        $page = $this->model->find($id);
         return view('contentmanager::pages.edit', compact('page'));
     }
 
@@ -106,13 +90,10 @@ class PageController extends Controller
      * @param  \App\Page $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Page $page)
     {
-        $page = $this->model->find($id);
         $data = $request->all();
-        $path = $request->file('cover')->store('public/page_cover');
         $data['slug'] = str_slug($data['title']);
-        $data['cover'] = $path;
         $page->update($data);
         return redirect('/pages');
     }
@@ -125,7 +106,7 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        $page = $this->model->find($id);
+        $page = Page::findOrFail($id);
         $page->delete();
         return redirect('pages');
     }

@@ -1,13 +1,12 @@
 <?php
 
-namespace VincentNt\ContentManager\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use VincentNt\ContentManager\Models\Page;
+use App\Page;
 use Yajra\DataTables\DataTables;
 
 
-class DataController extends Controller
+class DataController extends AdminController
 {
     protected $dataTables;
 

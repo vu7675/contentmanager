@@ -13,21 +13,15 @@ class ContentManagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        include __DIR__.'/routes/web.php';
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/views', 'contentmanager');
         $this->publishes([
             __DIR__.'/views' => resource_path('views/vendor/contentmanager'),
+            __DIR__.'/database/migrations/' => database_path('migrations'),
+            __DIR__.'/database/seeds/' => database_path('seeds'),
+            __DIR__.'/controllers' => app_path('Http/Controllers/Admin'),
+            __DIR__.'/images' => public_path('images'),
         ]);
-        $this->publishes([
-            __DIR__.'/database/migrations/' => database_path('migrations')
-        ], 'migrations');
-        $this->publishes([
-            __DIR__.'/controllers' => app_path('Http/Controllers'),
-        ]);
-//        $this->publishes([
-//            __DIR__.'/assets' => public_path('vendor/contentmanager'),
-//        ], 'public');
 
         $this->registerConsoleCommands();
     }
@@ -40,7 +34,6 @@ class ContentManagerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(ContentManagerEventServiceProvider::class);
-//        $this->app->make('VincentNt\ContentManager\Controllers\PageController');
     }
 
     /**

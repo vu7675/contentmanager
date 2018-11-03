@@ -1,10 +1,10 @@
 <?php
 
-namespace VincentNt\ContentManager\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
 
     /**
@@ -25,6 +25,5 @@ class HomeController extends Controller
     {
         return view('contentmanager::index');
     }
-
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace VincentNt\ContentManager\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
