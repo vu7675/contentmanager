@@ -19,10 +19,10 @@
             <a class="nav-link" href="{{url('/admin/users')}}">Users</a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="{{url('/admin/menu')}}">Menu</a>
+            <a class="nav-link" href="{{url('/admin/menus')}}">Menu</a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="{{url('/admin/slider')}}">Sliders</a>
+            <a class="nav-link" href="{{url('/admin/sliders')}}">Sliders</a>
         </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">
@@ -34,7 +34,7 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <img class="img-avatar" src="http://lorempixel.com/50/50/" alt="admin@bootstrapmaster.com">
+                <img class="img-avatar" src="{{asset('images/admin.png')}}" alt="{{auth('admin')->user()->email}}">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="#">
