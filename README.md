@@ -3,13 +3,16 @@ Content Manager package for reuse purpose
 
 Edit .env file for database and run command 
 
-* Copy file for system
-php artisan content-manager
+** Copy file for system
 
-* autoload file
-composer dump-autoload
+* php artisan content-manager
 
-* run app
-php artisan serve
+** autoload file
 
-* Hola. Enjoy it!
+* composer dump-autoload
+
+** run app
+
+* php artisan serve
+
+** Hola. Enjoy it!

@@ -21,6 +21,7 @@ class ContentManagerServiceProvider extends ServiceProvider
             __DIR__.'/database/seeds/' => database_path('seeds'),
             __DIR__.'/controllers' => app_path('Http/Controllers/Admin'),
             __DIR__.'/images' => public_path('images'),
+            __DIR__.'/models' => app_path(),
         ]);
 
         $this->registerConsoleCommands();
