@@ -94,7 +94,9 @@ class PostController extends BackendController
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
-        return redirect('posts');
+        if($post->delete()){
+            return 1;
+        }
+        return 0;
     }
 }
