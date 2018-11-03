@@ -22,6 +22,9 @@ class ContentManagerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/database/migrations/' => database_path('migrations')
         ], 'migrations');
+        $this->publishes([
+            __DIR__.'/controllers' => app_path('Http/Controllers'),
+        ]);
 //        $this->publishes([
 //            __DIR__.'/assets' => public_path('vendor/contentmanager'),
 //        ], 'public');
