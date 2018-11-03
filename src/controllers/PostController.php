@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Post;
 
-class PostController extends AdminController
+class PostController extends BackendController
 {
     /**
      * Display a listing of the resource.

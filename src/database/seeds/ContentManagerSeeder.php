@@ -14,10 +14,38 @@ class ContentManagerSeeder extends Seeder
     public function run()
     {
         DB::table('admins')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@maruweb.vn',
-            'password' => bcrypt('admin1234'),
-            'remember_token' => str_random(10)
+            [
+                'name' => 'Admin',
+                'email' => 'admin@maruweb.vn',
+                'password' => bcrypt('admin1234'),
+                'remember_token' => str_random(10)
+            ],
+            [
+                'name' => 'Editor',
+                'email' => 'editor@maruweb.vn',
+                'password' => bcrypt('editor1234'),
+                'remember_token' => str_random(10)
+            ],
+        ]);
+        DB::table('roles')->insert([
+            [
+                'name' => 'Super Admin',
+                'description' => 'Full Access',
+            ],
+            [
+                'name' => 'Editor',
+                'description' => 'Can manage all pages, posts, sliders',
+            ],
+        ]);
+        DB::table('admin_role')->insert([
+            [
+                'admin_id' => 1,
+                'role_id' => 1,
+            ],
+            [
+                'admin_id' => 2,
+                'role_id' => 2,
+            ],
         ]);
         DB::table('users')->insert([
             'name' => 'John Doe',
@@ -46,7 +74,8 @@ class ContentManagerSeeder extends Seeder
                 'meta-description' => str_slug('Đời sống'),
             ],
         ]);
-        $posts = factory(App\Post::class, 100)->create();
+
+        $posts = factory(App\Post::class, 8)->create();
         foreach ($posts as $post) {
             DB::table('post_category')->insert([
                 'post_id' => $post->id,

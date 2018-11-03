@@ -3,10 +3,10 @@
     <br>
     <div class="card">
         <div class="card-header">
-            Categorys
+            Users
         </div>
         <div class="card-body">
-            {!! $category->body !!}
+            {!! $user->body !!}
         </div>
     </div>
 @endsection

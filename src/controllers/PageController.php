@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Page;
 
-class PageController extends AdminController
+class PageController extends BackendController
 {
     /**
      * Display a listing of the resource.

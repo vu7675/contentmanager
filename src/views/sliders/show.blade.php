@@ -3,10 +3,10 @@
     <br>
     <div class="card">
         <div class="card-header">
-            Categorys
+            Sliders
         </div>
         <div class="card-body">
-            {!! $category->body !!}
+            {!! $slider->body !!}
         </div>
     </div>
 @endsection

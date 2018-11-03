@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
-    Route::get('/', 'AdminController@index')->name('admin.index');
+    Route::get('/', 'BackendController@index')->name('admin.index');
     Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'LoginController@login')->name('admin.login.submit');
     Route::post('/logout', 'LoginController@logout')->name('admin.logout');
@@ -24,8 +24,17 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
         'pages' => 'PageController',
         'posts' => 'PostController',
         'categories' => 'CategoryController',
+        'users' => 'UserController',
+        'admins' => 'AdminController',
+        'roles' => 'RoleController',
+        'sliders' => 'SliderController',
     ]);
     //data
     Route::get('/pageData', 'DataController@pageData')->name('pageData');
     Route::get('/postData', 'DataController@postData')->name('postData');
+    Route::get('/categoryData', 'DataController@categoryData')->name('categoryData');
+    Route::get('/userData', 'DataController@userData')->name('userData');
+    Route::get('/adminData', 'DataController@adminData')->name('adminData');
+    Route::get('/roleData', 'DataController@roleData')->name('roleData');
+    Route::get('/sliderData', 'DataController@sliderData')->name('sliderData');
 });

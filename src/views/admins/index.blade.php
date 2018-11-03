@@ -11,18 +11,18 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($categories as $category)
+        @foreach($admins as $admin)
             <tr>
-                <td scope="row">{{$category->id}}</td>
-                <td>{{$category->title}}</td>
-                <td>{{$category->slug}}</td>
-                <td>{{$category->created_at}}</td>
+                <td scope="row">{{$admin->id}}</td>
+                <td>{{$admin->title}}</td>
+                <td>{{$admin->slug}}</td>
+                <td>{{$admin->created_at}}</td>
                 <td>
-                    <a href="{{url('categories/'.$category->id.'/edit')}}">
+                    <a href="{{url('admins/'.$admin->id.'/edit')}}">
                         <button class="btn btn-sm btn-primary">Edit</button>
                     </a>
-                    <button class="btn btn-sm btn-danger delete" data-id="{{$category->id}}">Delete</button>
-                    <form id="delete-{{$category->id}}" action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: none;">
+                    <button class="btn btn-sm btn-danger delete" data-id="{{$admin->id}}">Delete</button>
+                    <form id="delete-{{$admin->id}}" action="{{ route('admins.destroy', $admin->id) }}" method="POST" style="display: none;">
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">
                     </form>
@@ -38,7 +38,7 @@
             $('#wdcBackendTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('categoryData') !!}',
+                ajax: '{!! route('adminData') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'title', name: 'title' },

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Slider;
 
-class CategoryController extends BackendController
+class SliderController extends BackendController
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoryController extends BackendController
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('contentmanager::categories.index', compact('categories'));
+        $sliders = Slider::all();
+        return view('contentmanager::sliders.index', compact('sliders'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends BackendController
      */
     public function create()
     {
-        return view('contentmanager::categories.create');
+        return view('contentmanager::sliders.create');
     }
 
     /**
@@ -57,57 +57,57 @@ class CategoryController extends BackendController
             'title' => $request->title,
             'slug' => str_slug($request->title),
         ]);
-        return redirect('/admin/categories');
+        return redirect('/admin/sliders');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category $category
+     * @param  \App\Slider $slider
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $category = $this->model->find($id);
-        return view('contentmanager::categories.show', compact('category'));
+        $slider = $this->model->find($id);
+        return view('contentmanager::sliders.show', compact('slider'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category $category
+     * @param  \App\Slider $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Slider $slider)
     {
-        return view('contentmanager::categories.edit', compact('category'));
+        return view('contentmanager::sliders.edit', compact('slider'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Category $category
+     * @param  \App\Slider $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Slider $slider)
     {
         $data = $request->all();
         $data['slug'] = str_slug($data['title']);
-        $category->update($data);
-        return redirect('/categories');
+        $slider->update($data);
+        return redirect('/sliders');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category $category
+     * @param  \App\Slider $slider
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return redirect('categories');
+        $slider = Slider::findOrFail($id);
+        $slider->delete();
+        return redirect('sliders');
     }
 }

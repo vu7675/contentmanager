@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
+use App\Category;
 use App\Page;
 use App\Post;
+use App\Role;
+use App\Slider;
+use App\User;
 use Yajra\DataTables\DataTables;
 
 
-class DataController extends AdminController
+class DataController extends BackendController
 {
     protected $dataTables;
 
@@ -38,6 +43,65 @@ class DataController extends AdminController
             ->addColumn('actions', function ($post) {
                 return '<a href="' . route('posts.edit', $post->id) . '" class="btn btn-warning btn-sm btn-margin-right"><i class="cui-pencil"></i></a>
                         <a href="javascript:deleteObject(' . $post->id . ');" class="btn btn-danger btn-sm"><i class="cui-trash"></i></a>';
+            })
+            ->escapeColumns(null)
+            ->toJson();
+    }
+    public function categoryData()
+    {
+        $categories = Category::orderByDesc('id')->get();
+        return Datatables::of($categories)
+            ->addColumn('actions', function ($category) {
+                return '<a href="' . route('categories.edit', $category->id) . '" class="btn btn-warning btn-sm btn-margin-right"><i class="cui-pencil"></i></a>
+                        <a href="javascript:deleteObject(' . $category->id . ');" class="btn btn-danger btn-sm"><i class="cui-trash"></i></a>';
+            })
+            ->escapeColumns(null)
+            ->toJson();
+    }
+
+    public function userData()
+    {
+        $users = User::orderByDesc('id')->get();
+        return Datatables::of($users)
+            ->addColumn('actions', function ($user) {
+                return '<a href="' . route('users.edit', $user->id) . '" class="btn btn-warning btn-sm btn-margin-right"><i class="cui-pencil"></i></a>
+                        <a href="javascript:deleteObject(' . $user->id . ');" class="btn btn-danger btn-sm"><i class="cui-trash"></i></a>';
+            })
+            ->escapeColumns(null)
+            ->toJson();
+    }
+
+    public function roleData()
+    {
+        $roles = Role::orderByDesc('id')->get();
+        return Datatables::of($roles)
+            ->addColumn('actions', function ($role) {
+                return '<a href="' . route('roles.edit', $role->id) . '" class="btn btn-warning btn-sm btn-margin-right"><i class="cui-pencil"></i></a>
+                        <a href="javascript:deleteObject(' . $role->id . ');" class="btn btn-danger btn-sm"><i class="cui-trash"></i></a>';
+            })
+            ->escapeColumns(null)
+            ->toJson();
+    }
+
+    public function adminData()
+    {
+        $admins = Admin::orderByDesc('id')->get();
+        return Datatables::of($admins)
+            ->addColumn('actions', function ($admin) {
+                return '<a href="' . route('admins.edit', $admin->id) . '" class="btn btn-warning btn-sm btn-margin-right"><i class="cui-pencil"></i></a>
+                        <a href="javascript:deleteObject(' . $admin->id . ');" class="btn btn-danger btn-sm"><i class="cui-trash"></i></a>';
+            })
+            ->escapeColumns(null)
+            ->toJson();
+    }
+
+    public function sliderData()
+    {
+        $sliders = Slider::orderByDesc('id')->get();
+        return Datatables::of($sliders)
+            ->addColumn('actions', function ($slider) {
+                return '<a href="' . route('sliders.edit', $slider->id) . '" class="btn btn-warning btn-sm btn-margin-right"><i class="cui-pencil"></i></a>
+                        <a href="javascript:deleteObject(' . $slider->id . ');" class="btn btn-danger btn-sm"><i class="cui-trash"></i></a>';
             })
             ->escapeColumns(null)
             ->toJson();

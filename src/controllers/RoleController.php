@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Role;
 
-class CategoryController extends BackendController
+class RoleController extends BackendController
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoryController extends BackendController
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('contentmanager::categories.index', compact('categories'));
+        $roles = Role::all();
+        return view('contentmanager::roles.index', compact('roles'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends BackendController
      */
     public function create()
     {
-        return view('contentmanager::categories.create');
+        return view('contentmanager::roles.create');
     }
 
     /**
@@ -57,57 +57,57 @@ class CategoryController extends BackendController
             'title' => $request->title,
             'slug' => str_slug($request->title),
         ]);
-        return redirect('/admin/categories');
+        return redirect('/admin/roles');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category $category
+     * @param  \App\Role $role
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $category = $this->model->find($id);
-        return view('contentmanager::categories.show', compact('category'));
+        $role = $this->model->find($id);
+        return view('contentmanager::roles.show', compact('role'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category $category
+     * @param  \App\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Role $role)
     {
-        return view('contentmanager::categories.edit', compact('category'));
+        return view('contentmanager::roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Category $category
+     * @param  \App\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Role $role)
     {
         $data = $request->all();
         $data['slug'] = str_slug($data['title']);
-        $category->update($data);
-        return redirect('/categories');
+        $role->update($data);
+        return redirect('/roles');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category $category
+     * @param  \App\Role $role
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return redirect('categories');
+        $role = Role::findOrFail($id);
+        $role->delete();
+        return redirect('roles');
     }
 }

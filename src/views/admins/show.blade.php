@@ -3,10 +3,10 @@
     <br>
     <div class="card">
         <div class="card-header">
-            Categorys
+            Admins
         </div>
         <div class="card-body">
-            {!! $category->body !!}
+            {!! $admin->body !!}
         </div>
     </div>
 @endsection

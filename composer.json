@@ -27,6 +27,7 @@
     "autoload": {
         "psr-4": {
             "VincentNt\\ContentManager\\": "src"
-        }
+        },
+        "exclude-from-classmap": ["/controllers/", "/models/", "/database/"]
     }
 }

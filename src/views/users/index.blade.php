@@ -11,18 +11,18 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($categories as $category)
+        @foreach($users as $user)
             <tr>
-                <td scope="row">{{$category->id}}</td>
-                <td>{{$category->title}}</td>
-                <td>{{$category->slug}}</td>
-                <td>{{$category->created_at}}</td>
+                <td scope="row">{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->created_at}}</td>
                 <td>
-                    <a href="{{url('categories/'.$category->id.'/edit')}}">
+                    <a href="{{url('users/'.$user->id.'/edit')}}">
                         <button class="btn btn-sm btn-primary">Edit</button>
                     </a>
-                    <button class="btn btn-sm btn-danger delete" data-id="{{$category->id}}">Delete</button>
-                    <form id="delete-{{$category->id}}" action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: none;">
+                    <button class="btn btn-sm btn-danger delete" data-id="{{$user->id}}">Delete</button>
+                    <form id="delete-{{$user->id}}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none;">
                         {{csrf_field()}}
                         <input type="hidden" name="_method" value="DELETE">
                     </form>
@@ -38,11 +38,11 @@
             $('#wdcBackendTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('categoryData') !!}',
+                ajax: '{!! route('userData') !!}',
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'title', name: 'title' },
-                    { data: 'slug', name: 'slug' },
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ]
