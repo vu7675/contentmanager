@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSlidersTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'sliders';
+    public $set_schema_table = 'posts';
 
     /**
      * Run the migrations.
-     * @table sliders
+     * @table posts
      *
      * @return void
      */
@@ -24,14 +24,17 @@ class CreateSlidersTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('image', 191);
-            $table->string('title', 191)->nullable();
-            $table->string('link', 191)->nullable();
-            $table->string('button_text', 191)->nullable();
-            $table->string('description')->nullable();
-            $table->integer('active')->nullable()->default('1');
-            $table->timestamps();
+            $table->string('title', 191);
+            $table->string('slug', 191);
+            $table->string('cover', 191)->nullable()->default(null);
+            $table->string('meta-description', 191)->nullable()->default(null);
+            $table->longText('body');
+
+            $table->unique(["slug"], 'slug_UNIQUE');
+
+            $table->unique(["title"], 'title_UNIQUE');
             $table->softDeletes();
+            $table->nullableTimestamps();
         });
     }
 

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenusTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'menus';
+    public $set_schema_table = 'roles';
 
     /**
      * Run the migrations.
-     * @table menus
+     * @table roles
      *
      * @return void
      */
@@ -24,20 +24,12 @@ class CreateMenusTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('parent_id');
-            $table->string('title', 191);
-            $table->string('link', 191);
-            $table->integer('level');
-            $table->integer('target');
-            $table->timestamps();
+            $table->string('name', 20);
+            $table->string('description', 191);
 
-            $table->index(["parent_id"], 'fk_menus_menus1_idx');
-
-
-            $table->foreign('parent_id', 'fk_menus_menus1_idx')
-                ->references('id')->on('menus')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->unique(["name"], 'name_UNIQUE');
+            $table->softDeletes();
+            $table->nullableTimestamps();
         });
     }
 

@@ -22,7 +22,10 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::post('/logout', 'LoginController@logout')->name('admin.logout');
     Route::resources([
         'pages' => 'PageController',
+        'posts' => 'PostController',
+        'categories' => 'CategoryController',
     ]);
     //data
     Route::get('/pageData', 'DataController@pageData')->name('pageData');
+    Route::get('/postData', 'DataController@postData')->name('postData');
 });

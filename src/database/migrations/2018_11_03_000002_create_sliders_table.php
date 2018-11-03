@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminsTable extends Migration
+class CreateSlidersTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'admins';
+    public $set_schema_table = 'sliders';
 
     /**
      * Run the migrations.
-     * @table admins
+     * @table sliders
      *
      * @return void
      */
@@ -24,14 +24,14 @@ class CreateAdminsTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name', 191);
-            $table->string('email', 191);
-            $table->string('password', 191);
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('image', 191);
+            $table->string('title', 191)->nullable()->default(null);
+            $table->string('link', 191)->nullable()->default(null);
+            $table->string('button_text', 191)->nullable()->default(null);
+            $table->string('description', 191)->nullable()->default(null);
+            $table->integer('active')->nullable()->default('1');
             $table->softDeletes();
-
-            $table->unique(["email"], 'email_UNIQUE');
+            $table->nullableTimestamps();
         });
     }
 

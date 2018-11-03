@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class CreatePagesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'roles';
+    public $set_schema_table = 'pages';
 
     /**
      * Run the migrations.
-     * @table roles
+     * @table pages
      *
      * @return void
      */
@@ -24,12 +24,15 @@ class CreateRolesTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name', 20);
-            $table->string('description');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('title', 191);
+            $table->string('slug', 191);
+            $table->text('body');
 
-            $table->unique(["name"], 'name_UNIQUE');
+            $table->unique(["slug"], 'pages_slug_unique');
+
+            $table->unique(["title"], 'pages_title_unique');
+            $table->softDeletes();
+            $table->nullableTimestamps();
         });
     }
 

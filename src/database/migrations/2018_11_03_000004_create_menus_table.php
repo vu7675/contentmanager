@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateMenusTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'pages';
+    public $set_schema_table = 'menus';
 
     /**
      * Run the migrations.
-     * @table pages
+     * @table menus
      *
      * @return void
      */
@@ -24,15 +24,20 @@ class CreatePagesTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->unsignedInteger('parent_id');
             $table->string('title', 191);
-            $table->string('slug', 191);
-            $table->text('body');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('link', 191);
+            $table->integer('level');
+            $table->integer('target');
 
-            $table->unique(["slug"], 'pages_slug_unique');
+            $table->index(["parent_id"], 'fk_menus_menus1_idx');
+            $table->nullableTimestamps();
 
-            $table->unique(["title"], 'pages_title_unique');
+
+            $table->foreign('parent_id', 'fk_menus_menus1_idx')
+                ->references('id')->on('menus')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -49,28 +49,32 @@ class InstallCommand extends Command
             $app_service_contents = $filesystem->get(__DIR__ . '/../rewrite_files/AppServiceProvider.php');
             $handler_contents = $filesystem->get(__DIR__ . '/../rewrite_files/Handler.php');
             $redirect_contents = $filesystem->get(__DIR__ . '/../rewrite_files/RedirectIfAuthenticated.php');
+            $factory_contents = $filesystem->get(__DIR__ . '/../rewrite_files/UserFactory.php');
             $seed_contents = $filesystem->get(__DIR__ . '/../rewrite_files/DatabaseSeeder.php');
             $auth_contents = $filesystem->get(__DIR__ . '/../rewrite_files/auth.php');
             $url_contents = $filesystem->get(__DIR__ . '/../rewrite_files/web.php');
             $filesystem->put(
-                base_path('app/Providers/AppServiceProvider.php'), $app_service_contents
+                app_path('Providers/AppServiceProvider.php'), $app_service_contents
             );
             $filesystem->put(
-                base_path('app/Exceptions/Handler.php'), $handler_contents
+                app_path('Exceptions/Handler.php'), $handler_contents
             );
             $filesystem->put(
-                base_path('app/Http/Middleware/RedirectIfAuthenticated.php'), $redirect_contents
+                app_path('Http/Middleware/RedirectIfAuthenticated.php'), $redirect_contents
             );
             $filesystem->put(
-                base_path('database/seeds/DatabaseSeeder.php'), $seed_contents
+                database_path('factories/UserFactory.php'), $factory_contents
             );
             $filesystem->put(
-                base_path('config/auth.php'), $auth_contents
+                database_path('seeds/DatabaseSeeder.php'), $seed_contents
+            );
+            $filesystem->put(
+                config_path('auth.php'), $auth_contents
             );
             $filesystem->put(
                 base_path('routes/web.php'), $url_contents
             );
-            Artisan::call('make:auth');
+//            Artisan::call('make:auth');
         }
         $this->info('Successfully installed content manager! Enjoy');
     }

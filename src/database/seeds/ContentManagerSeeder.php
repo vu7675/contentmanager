@@ -26,6 +26,33 @@ class ContentManagerSeeder extends Seeder
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
         ]);
-        factory(App\User::class, 10)->create();
+        DB::table('categories')->insert([
+            [
+                'name' => 'Tin tức',
+                'slug' => str_slug('Tin tức'),
+                'cover' => '/images/category/1.jpg',
+                'meta-description' => str_slug('Tin tức'),
+            ],
+            [
+                'name' => 'Sức khoẻ',
+                'slug' => str_slug('Sức khoẻ'),
+                'cover' => '/images/category/1.jpg',
+                'meta-description' => str_slug('Sức khoẻ'),
+            ],
+            [
+                'name' => 'Đời sống',
+                'slug' => str_slug('Đời sống'),
+                'cover' => '/images/category/1.jpg',
+                'meta-description' => str_slug('Đời sống'),
+            ],
+        ]);
+        $posts = factory(App\Post::class, 100)->create();
+        foreach ($posts as $post) {
+            DB::table('post_category')->insert([
+                'post_id' => $post->id,
+                'category_id' => rand(1,3),
+            ]);
+        }
+        factory(App\Page::class, 3)->create();
     }
 }

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreatePostCategoryTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'posts';
+    public $set_schema_table = 'post_category';
 
     /**
      * Run the migrations.
-     * @table posts
+     * @table post_category
      *
      * @return void
      */
@@ -23,24 +23,20 @@ class CreatePostsTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->unsignedInteger('post_id');
             $table->unsignedInteger('category_id');
-            $table->string('title', 191);
-            $table->string('slug', 191);
-            $table->string('cover', 191)->nullable();
-            $table->string('meta-description')->nullable();
-            $table->longText('body');
-            $table->timestamps();
-            $table->softDeletes();
 
-            $table->index(["category_id"], 'fk_posts_categories_idx');
+            $table->index(["post_id"], 'fk_post_idx');
 
-            $table->unique(["slug"], 'slug_UNIQUE');
-
-            $table->unique(["title"], 'title_UNIQUE');
+            $table->index(["category_id"], 'fk_category_idx');
 
 
-            $table->foreign('category_id', 'fk_posts_categories_idx')
+            $table->foreign('post_id', 'fk_post_idx')
+                ->references('id')->on('posts')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('category_id', 'fk_category_idx')
                 ->references('id')->on('categories')
                 ->onDelete('no action')
                 ->onUpdate('no action');

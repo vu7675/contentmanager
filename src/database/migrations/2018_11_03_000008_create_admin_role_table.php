@@ -27,12 +27,15 @@ class CreateAdminRoleTable extends Migration
             $table->unsignedInteger('role_id');
 
             $table->index(["admin_id"], 'fk_admin_idx');
+
             $table->index(["role_id"], 'fk_role_idx');
+
 
             $table->foreign('admin_id', 'fk_admin_idx')
                 ->references('id')->on('admins')
                 ->onDelete('no action')
                 ->onUpdate('no action');
+
             $table->foreign('role_id', 'fk_role_idx')
                 ->references('id')->on('roles')
                 ->onDelete('no action')
