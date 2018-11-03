@@ -33,13 +33,13 @@ class CreatePostCategoryTable extends Migration
 
             $table->foreign('post_id', 'fk_post_idx')
                 ->references('id')->on('posts')
-                ->onDelete('no action')
+                ->onDelete('cascade')
                 ->onUpdate('no action');
 
             $table->foreign('category_id', 'fk_category_idx')
                 ->references('id')->on('categories')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onUpdate('no action');
         });
     }
 
