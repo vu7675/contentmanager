@@ -22,7 +22,7 @@
     <main class="main">
         @include('contentmanager::breadcrumb')
         <div class="container-fluid">
-            @if(isset($errors))
+            @if($errors->any() || session('success') != null)
                 @include('contentmanager::alert')
             @endif
             <div class="card col-md-12">

@@ -28,7 +28,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
     return [
         'title' => $title,
         'slug' => str_slug($title).uniqid(),
-        'cover' => '/images/post/'.rand(1,10).'.jpg',
+        'cover' => 'public/images/post/'.rand(1,10).'.jpg',
         'description' => $faker->sentence(),
         'body' => $faker->paragraph(3),
     ];

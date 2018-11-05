@@ -20,7 +20,7 @@ class ContentManagerServiceProvider extends ServiceProvider
             __DIR__.'/database/migrations/' => database_path('migrations'),
             __DIR__.'/database/seeds/' => database_path('seeds'),
             __DIR__.'/controllers' => app_path('Http/Controllers/Admin'),
-            __DIR__.'/images' => public_path('images'),
+            __DIR__.'/images' => storage_path('app/public/images'),
             __DIR__.'/models' => app_path(),
             __DIR__.'/events' => app_path('Events'),
             __DIR__.'/listeners' => app_path('Listeners'),

@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\EditBodyContent' => [
             'App\Listeners\UploadImageAndAppendToBody',
         ],
+        'App\Events\UploadCover' => [
+            'App\Listeners\UploadCoverImageAndReturnPath',
+        ],
     ];
 
     /**

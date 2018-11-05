@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Events\EditBodyContent;
-use Illuminate\Http\Request;
+use App\Events\UploadCover;
 use App\Post;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends BackendController
 {
@@ -38,11 +40,20 @@ class PostController extends BackendController
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $request['slug'] = str_slug($request['title']);
-        $request['body'] = event(new EditBodyContent($data['summer_note']))[0];
-        Post::create($request->except(['_method','_token','summer_note','files']));
-        return redirect('/admin/posts');
+        try{
+            DB::beginTransaction();
+            $data = $request->all();
+            $data['slug'] = str_slug($data['title']);
+            $data['body'] = event(new EditBodyContent($request['summer_note']))[0];
+            $data['cover'] = event(new UploadCover($request->file('cover'), 'post'))[0];
+            $post = Post::create(array_except($data, ['_method', '_token', 'summer_note', 'files', 'categories']));
+            $post->categories()->sync(array_values($data['categories']));
+            DB::commit();
+            return redirect('/admin/posts')->with('success','Item successfully created');
+        }catch (\Exception $e){
+            $e->getMessage();
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -65,6 +76,7 @@ class PostController extends BackendController
      */
     public function edit(Post $post)
     {
+//        dd($post->categories->pluck('id')->toArray());
         $categories = Category::select('id', 'name')->get();
         return view('contentmanager::posts.edit', compact('post', 'categories'));
     }
@@ -78,11 +90,20 @@ class PostController extends BackendController
      */
     public function update(Request $request, Post $post)
     {
-        $data = $request->all();
-        $request['slug'] = str_slug($request['title']);
-        $request['body'] = event(new EditBodyContent($data['summer_note']))[0];
-        $post->update($request->except(['_method','_token','summer_note','files']));
-        return redirect('/posts');
+        try{
+            $data = $request->all();
+            DB::beginTransaction();
+            $data['slug'] = str_slug($request['title']);
+            $data['body'] = event(new EditBodyContent($request['summer_note']))[0];
+            $data['cover'] = $request->file('cover') == null ? $post->cover : event(new UploadCover($request->file('cover'), 'post'))[0];
+            $post->update(array_except($data, ['_method', '_token', 'summer_note', 'files','categories']));
+            $post->categories()->sync(array_values($data['categories']));
+            DB::commit();
+            return redirect()->back()->with('success','Item successfully updated');
+        }catch (\Exception $e){
+            $e->getMessage();
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -94,9 +115,10 @@ class PostController extends BackendController
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if($post->delete()){
+        if ($post->delete()) {
             return 1;
         }
         return 0;
+
     }
 }
