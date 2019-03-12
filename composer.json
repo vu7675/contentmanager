@@ -14,7 +14,7 @@
         "yajra/laravel-datatables-oracle":"^8.9",
         "intervention/image":"^2.4",
         "laravel/socialite": "^3.2",
-        "proengsoft/laravel-jsvalidation": "^2.3",
+        "proengsoft/laravel-jsvalidation": "*",
     },
     "extra": {
         "laravel": {
