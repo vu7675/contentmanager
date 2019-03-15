@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Page;
+use App\Events\EditBodyContent;
 
 class PageController extends BackendController
 {
@@ -37,26 +38,8 @@ class PageController extends BackendController
     public function store(Request $request)
     {
         $data = $request->all();
-        $dom = new \DOMDocument();
-        $dom->loadHtml($data['body'], LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $images = $dom->getelementsbytagname('img');
-        foreach ($images as $k => $img) {
-            $data = $img->getattribute('src');
-            list($type, $data) = explode(';', $data);
-            list(, $data) = explode(',', $data);
-            $data = base64_decode($data);
-            $image_name = '/images/' . uniqid() . '.jpg';
-            $path = public_path() . $image_name;
-            file_put_contents($path, $data);
-            $img->removeattribute('src');
-            $img->setattribute('src', $image_name);
-        }
-        $detail = $dom->saveHTML();
-        $this->model->create([
-            'body' => $detail,
-            'title' => $request->title,
-            'slug' => str_slug($request->title),
-        ]);
+        $data['body'] = event(new EditBodyContent($request['summer_note']))[0];
+        Page::create(array_except($data, ['_method', '_token', 'summer_note', 'files']));
         return redirect('/admin/pages');
     }
 
@@ -93,9 +76,10 @@ class PageController extends BackendController
     public function update(Request $request, Page $page)
     {
         $data = $request->all();
+        $data['body'] = event(new EditBodyContent($request['summer_note']))[0];
         $data['slug'] = str_slug($data['title']);
-        $page->update($data);
-        return redirect('/pages');
+        $page->update(array_except($data, ['_method', '_token', 'summer_note', 'files']));
+        return redirect('/admin/pages');
     }
 
     /**

@@ -3,13 +3,17 @@
         <ul class="nav">
             <li class="nav-title">Menus</li>
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="nav-icon icon-pie-chart"></i> Charts</a>
+                <a class="nav-link" href="{{url('/admin/posts')}}">
+                    <i class="nav-icon icon-book-open "></i> Posts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="widgets.html">
-                    <i class="nav-icon icon-calculator"></i> Widgets
-                    <span class="badge badge-primary">NEW</span>
+                <a class="nav-link" href="{{url('/admin/categories')}}">
+                    <i class="nav-icon icon-people "></i> Categories
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('/admin/users')}}">
+                    <i class="nav-icon icon-people "></i> Users
                 </a>
             </li>
         </ul>

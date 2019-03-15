@@ -76,7 +76,6 @@ class PostController extends BackendController
      */
     public function edit(Post $post)
     {
-//        dd($post->categories->pluck('id')->toArray());
         $categories = Category::select('id', 'name')->get();
         return view('contentmanager::posts.edit', compact('post', 'categories'));
     }
