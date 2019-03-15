@@ -11,9 +11,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "yajra/laravel-datatables-oracle":"^8.9",
-        "intervention/image":"^2.4",
-        "proengsoft/laravel-jsvalidation": "^2.3"
+        "yajra/laravel-datatables-oracle":"*",
+        "intervention/image":"*",
+        "paypal/rest-api-sdk-php": "*",
+        "stripe/stripe-php": "*",
+        "proengsoft/laravel-jsvalidation": "*"
     },
     "extra": {
         "laravel": {
